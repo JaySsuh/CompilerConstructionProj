@@ -23,26 +23,26 @@ int processString();
 
 %}
 
-newline         //TODO
-whitespace      //TODO
-integer         //TODO
-character       //TODO
+newline         \n
+whitespace      [ \t\r]+
+integer         [0-9]+
+character       \'[^\'\n]\'  /* match anything that isnt a single quote or newline */
 
  /* String can contain any characters between the double quotes */
  /* other than a newline or unescaped doublequotes */
 */
-string       //TODO
+string       \"([^\n\"\\]|\\.)*\" 
 
 
  /* If the end quote is not found in the same line the string is unterminated */
-untermstring //TODO
+untermstring \"([^\n\"\\]|\\.)*\n
 
-comment         //TODO
-multlncomment   //TODO
-untermcomment   //TODO
+comment         \/\/[^\n]*
+multlncomment   \/\*([^*]|\*+[^*/])*\*+\/
+untermcomment   \/\*([^*]|\*+[^*/])*
 
-identifier      //TODO
-illidentifier   //TODO: regular expression for an illegal identifier
+identifier      [a-zA-Z][a-zA-Z0-9]*
+illidentifier   [0-9]+[a-zA-Z][a-zA-Z0-9]*
 
 yylineno = 1;
 
