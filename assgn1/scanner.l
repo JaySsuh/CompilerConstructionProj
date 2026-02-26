@@ -103,7 +103,7 @@ yylineno = 1;
 {integer}       {updateCol(); return INTCONST;}
 {character}     {updateCol(); return CHARCONST;}
 {string}        {updateCol(); return processString();}
-{untermstring}  {updateCol(); yyerror = "Unterminated string"; return ERROR;}
+{untermstring}  {yycol = scancol; scancol = 1; yyerror = "Unterminated string constant"; return ERROR;}
 
  /* Comments */
 {comment}       {updateCol();}
