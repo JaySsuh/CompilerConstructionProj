@@ -99,7 +99,7 @@ yylineno = 1;
 
  /* Constants */;
 {integer}       {updateCol(); return INTCONST;}
-{integerlead0}  {updateCol(); yyerror = ""Integers may not have leading zeros"; return ERROR;}
+{integerlead0}  {updateCol(); yyerror = "Integers may not have leading zeros"; return ERROR;}
 {character}     {updateCol(); return CHARCONST;}
 {string}        {updateCol(); return processString();}
 {untermstring}  {updateCol(); yyerror = "Unterminated string"; return ERROR;}
