@@ -26,6 +26,7 @@ int processString();
 newline         \n
 whitespace      [ \t\r]+
 integer         [0-9]+
+integerlead0    0[0-9]+      /* added definition so scanner recognizes the invalid integer */
 character       \'[^\'\n]\'  /* match anything that isnt a single quote or newline */
 
  /* String can contain any characters between the double quotes */
