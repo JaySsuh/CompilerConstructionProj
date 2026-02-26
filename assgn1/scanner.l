@@ -55,7 +55,7 @@ yylineno = 1;
 "else"          {updateCol(); return KWD_ELSE;}
 "while"         {updateCol(); return KWD_WHILE;}
 "int"           {updateCol(); return KWD_INT;}
-"string"        {updateCol(); return KND_STRING;}
+"string"        {updateCol(); return KWD_STRING;}
 "char"          {updateCol(); return KWD_CHAR;}
 "return"        {updateCol(); return KWD_RETURN;}
 "void"          {updateCol(); return KWD_VOID;}
