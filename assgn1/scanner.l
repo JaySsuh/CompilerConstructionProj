@@ -23,58 +23,96 @@ int processString();
 
 %}
 
-newline         //TODO
-whitespace      //TODO
-integer         //TODO
-character       //TODO
+%option noyywrap yylineno
+
+newline         \n
+whitespace      [ \t\r]+
+integer         [0-9]+
+integerlead0    0[0-9]+      /* added definition so scanner recognizes the invalid integer */
+character       \'[^\'\n]\'  /* match anything that isnt a single quote or newline */
 
  /* String can contain any characters between the double quotes */
  /* other than a newline or unescaped doublequotes */
-*/
-string       //TODO
+
+string       \"([^\n\"\\]|\\.)*\" 
 
 
  /* If the end quote is not found in the same line the string is unterminated */
-untermstring //TODO
+untermstring \"([^\n\"\\]|\\.)*\n
 
-comment         //TODO
-multlncomment   //TODO
-untermcomment   //TODO
+comment         \/\/[^\n]*
+multlncomment   \/\*([^*]|\*+[^*/])*\*+\/
+untermcomment   \/\*([^*]|\*+[^*/])*
 
-identifier      //TODO
-illidentifier   //TODO: regular expression for an illegal identifier
-
-yylineno = 1;
+identifier      [a-zA-Z][a-zA-Z0-9]*
+illidentifier   [0-9]+[a-zA-Z][a-zA-Z0-9]*
 
 %%
 
  /* rules */
 
  /* Keywords */
- /* TODO: Support all keywords in mC */
+"if"            {updateCol(); return KWD_IF;}
+"else"          {updateCol(); return KWD_ELSE;}
+"while"         {updateCol(); return KWD_WHILE;}
+"int"           {updateCol(); return KWD_INT;}
+"string"        {updateCol(); return KWD_STRING;}
+"char"          {updateCol(); return KWD_CHAR;}
+"return"        {updateCol(); return KWD_RETURN;}
+"void"          {updateCol(); return KWD_VOID;}
+
 
  /* Operators */
- /* TODO: Support all operators in mC */
+"++"            {updateCol(); return OPER_INC;}
+"--"            {updateCol(); return OPER_DEC;}
+"&&"            {updateCol(); return OPER_AND;}
+"||"            {updateCol(); return OPER_OR;}
+">="            {updateCol(); return OPER_GTE;}
+"<="            {updateCol(); return OPER_LTE;}              
+"=="            {updateCol(); return OPER_EQ;}
+"!="            {updateCol(); return OPER_NEQ;}
+"+"             {updateCol(); return OPER_ADD;}
+"-"             {updateCol(); return OPER_SUB;}
+"*"             {updateCol(); return OPER_MUL;}
+"/"             {updateCol(); return OPER_DIV;}
+"<"             {updateCol(); return OPER_LT;}
+">"             {updateCol(); return OPER_GT;}
+"="             {updateCol(); return OPER_ASGN;}
+"@"             {updateCol(); return OPER_AT;}
+"!"             {updateCol(); return OPER_NOT;}
+"%"             {updateCol(); return OPER_MOD;}
 
- /* Identifiers */;
-{identifier}    //TODO
-{illidentifier} //TODO
+ /* Brackets & Parens */
+ "["            {updateCol(); return LSQ_BRKT;}
+ "]"            {updateCol(); return RSQ_BRKT;}
+ "{"            {updateCol(); return LCRLY_BRKT;}
+ "}"            {updateCol(); return RCRLY_BRKT;}
+ "("            {updateCol(); return LPAREN;}
+ ")"            {updateCol(); return RPAREN;}
 
- /* Constants */;
-{integer}       //TODO
-{integerlead0}  //TODO: "Integers may not have leading zeros"
-{character}     //TODO
+ /* Punctuation */
+ ","            {updateCol(); return COMMA;}
+ ";"            {updateCol(); return SEMICLN;}
+
+ /* Identifiers */
+{identifier}    {updateCol(); return ID;}
+{illidentifier} {updateCol(); return ILLEGAL_TOK;}
+
+ /* Constants */
+{integerlead0}  {updateCol(); yyerror = "Integers may not have leading zeros"; return ERROR;}
+{integer}       {updateCol(); return INTCONST;}
+{character}     {updateCol(); return CHARCONST;}
 {string}        {updateCol(); return processString();}
-{untermstring}  {updateCol(); yyerror = "Unterminated string"; return ERROR;}
+{untermstring}  {yycol = scancol; scancol = 1; yyerror = "Unterminated string constant"; return ERROR;}
 
  /* Comments */
-{comment}       //TODO
-{untermcomment} //TODO
-{multlncomment} //TODO
+{comment}       {updateCol();}
+{multlncomment} {countLines();}
+{untermcomment} {yycol = scancol; yyerror = "Unterminated comment"; return ERROR;}
 
  /* Other */
-{newline}       //TODO
-{whitespace}    //TODO
+{newline}       {scancol = 1;}
+{whitespace}    {scancol += yyleng;}
 .               {return ILLEGAL_TOK;}
 
 %%
