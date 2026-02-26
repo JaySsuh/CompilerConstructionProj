@@ -99,16 +99,16 @@ yylineno = 1;
 {illidentifier} {updateCol(); return ILLEGAL_TOK;}
 
  /* Constants */;
-{integer}       {updateCol(); return INTCONST;}
 {integerlead0}  {updateCol(); yyerror = "Integers may not have leading zeros"; return ERROR;}
+{integer}       {updateCol(); return INTCONST;}
 {character}     {updateCol(); return CHARCONST;}
 {string}        {updateCol(); return processString();}
 {untermstring}  {updateCol(); yyerror = "Unterminated string"; return ERROR;}
 
  /* Comments */
 {comment}       {updateCol();}
-{untermcomment} {countLines();}
 {multlncomment} {yycol = scancol; yyerror = "Unterminated comment"; return ERROR;}
+{untermcomment} {countLines();}
 
  /* Other */
 {newline}       {scancol = 1;}
