@@ -107,8 +107,8 @@ yylineno = 1;
 
  /* Comments */
 {comment}       {updateCol();}
-{multlncomment} {yycol = scancol; yyerror = "Unterminated comment"; return ERROR;}
-{untermcomment} {countLines();}
+{multlncomment} {countLines();}
+{untermcomment} {yycol = scancol; yyerror = "Unterminated comment"; return ERROR;}
 
  /* Other */
 {newline}       {scancol = 1;}
