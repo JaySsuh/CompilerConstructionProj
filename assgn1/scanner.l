@@ -105,9 +105,9 @@ yylineno = 1;
 {untermstring}  {updateCol(); yyerror = "Unterminated string"; return ERROR;}
 
  /* Comments */
-{comment}       //TODO
-{untermcomment} //TODO
-{multlncomment} //TODO
+{comment}       {updateCol();}
+{untermcomment} {countLines();}
+{multlncomment} {yycol = scancol; yyerror = "Unterminated comment"; return ERROR;}
 
  /* Other */
 {newline}       //TODO
