@@ -23,10 +23,6 @@ int processString();
 
 $}
 
-newline         //TODO
-whitespace      //TODO
-integer         //TODO
-character       //TODO
 %option noyywrap yylineno
 
 newline         \n
@@ -37,27 +33,17 @@ character       \'[^\'\n]\'  /* match anything that isnt a single quote or newli
 
  /* String can contain any characters between the double quotes */
  /* other than a newline or unescaped doublequotes */
-*/
-string       //TODO
 
 string       \"([^\n\"\\]|\\.)*\" 
 
- /* If the end quote is not found in the same line the string is unterminated */
-untermstring //TODO
 
-comment         //TODO
-multlncomment   //TODO
-untermcomment   //TODO
  /* If the end quote is not found in the same line the string is unterminated */
 untermstring \"([^\n\"\\]|\\.)*\n
 
-identifier      //TODO
-illidentifier   //TODO: regular expression for an illegal identifier
 comment         \/\/[^\n]*
 multlncomment   \/\*([^*]|\*+[^*/])*\*+\/
 untermcomment   \/\*([^*]|\*+[^*/])*
 
-yylineno = 1;
 identifier      [a-zA-Z][a-zA-Z0-9]*
 illidentifier   [0-9]+[a-zA-Z][a-zA-Z0-9]*
 
@@ -66,7 +52,6 @@ illidentifier   [0-9]+[a-zA-Z][a-zA-Z0-9]*
  /* rules */
 
  /* Keywords */
- /* TODO: Support all keywords in mC */
 "if"            {updateCol(); return KWD_IF;}
 "else"          {updateCol(); return KWD_ELSE;}
 "while"         {updateCol(); return KWD_WHILE;}
@@ -76,8 +61,6 @@ illidentifier   [0-9]+[a-zA-Z][a-zA-Z0-9]*
 "return"        {updateCol(); return KWD_RETURN;}
 "void"          {updateCol(); return KWD_VOID;}
 
- /* Operators */
- /* TODO: Support all operators in mC */
 
  /* Operators */
 "++"            {updateCol(); return OPER_INC;}
