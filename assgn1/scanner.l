@@ -23,6 +23,8 @@ int processString();
 
 %}
 
+%option noyywrap yylineno
+
 newline         \n
 whitespace      [ \t\r]+
 integer         [0-9]+
@@ -92,11 +94,11 @@ illidentifier   [0-9]+[a-zA-Z][a-zA-Z0-9]*
  ","            {updateCol(); return COMMA;}
  ";"            {updateCol(); return SEMICLN;}
 
- /* Identifiers */;
+ /* Identifiers */
 {identifier}    {updateCol(); return ID;}
 {illidentifier} {updateCol(); return ILLEGAL_TOK;}
 
- /* Constants */;
+ /* Constants */
 {integerlead0}  {updateCol(); yyerror = "Integers may not have leading zeros"; return ERROR;}
 {integer}       {updateCol(); return INTCONST;}
 {character}     {updateCol(); return CHARCONST;}
