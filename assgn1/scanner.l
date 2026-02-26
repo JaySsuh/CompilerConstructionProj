@@ -98,9 +98,9 @@ yylineno = 1;
 {illidentifier} {updateCol(); return ILLEGAL_TOK;}
 
  /* Constants */;
-{integer}       //TODO
-{integerlead0}  //TODO: "Integers may not have leading zeros"
-{character}     //TODO
+{integer}       {updateCol(); return INTCONST;}
+{integerlead0}  {updateCol(); yyerror = ""Integers may not have leading zeros"; return ERROR;}
+{character}     {updateCol(); return CHARCONST;}
 {string}        {updateCol(); return processString();}
 {untermstring}  {updateCol(); yyerror = "Unterminated string"; return ERROR;}
 
