@@ -1,7 +1,7 @@
 
 /* definitions */
 
-%{
+%
 #include <stdio.h>
 #include <stdlib.h>
 #include "tokendef.h"
@@ -55,15 +55,15 @@ yylineno = 1;
  /* TODO: Support all operators in mC */
 
  /* Identifiers */;
-{identifier}    //TODO
-{illidentifier} {updateCol(); yyerror = "Illegal identifier"; return ERROR;}
+{identifier}    {updateCol(); /*return ID / KEYWORD */}
+{illidentifier} {updateCol(); yyerror = "Illegal token"; return ERROR;}
 
  /* Constants */;
-{integer}       //TODO
+{integer}       {updateCol(); /*set yylval & return INTEGER */}
 {integerlead0}  {updateCol(); yyerror = "Integers may no thave leading zeros"; return ERROR;}
-{character}     //TODO
+{character}     {updateCol(); /*set yylval & return CHAR */}
 {string}        {updateCol(); return processString();}
-{untermstring}  {updateCol(); yyerror = "Unterminated string"; return ERROR;}
+{untermstring}  {updateCol(); yyerror = "Unterminated string constant"; return ERROR;}
 
  /* Comments */
 {comment}       {updateCol();}
@@ -91,7 +91,7 @@ void updateCol(){
 Implement this function to keep track of line numbers
 */
 void countLines(){
-        for(int i = 0; i < yyleng; i++) {
+    for(int i = 0; i < yyleng; i++) {
         if(yytext[i] == '\n') {
             scanlineno++;
             scancol = 1;
@@ -111,10 +111,10 @@ convert valid escape sequences into escaped characters
 (string[0] == '\\' and string[1] == 'n', then string[0] should be '\n')
 */
 int processString(){
-        int len = yyleng;
+    int len = yyleng;
     
     if(len < 2 || yytext[0] != '"' || yytext[len-1] != '"') {
-        yyerror = "Unterminated string";
+        yyerror = "Unterminated string constant";
         return ERROR;
     }
 
@@ -132,7 +132,7 @@ int processString(){
         if(c == '\\') {
             if(src + 1 >= len - 1) {
                 free(buf);
-                yyerror = "Illegal escape sequence in string."
+                yyerror = "Unrecognized escape character in String";
                 return ERROR;
             }
             char next = yytext[src + 1];
@@ -153,15 +153,16 @@ int processString(){
                 case '"':
                     buf[dst++] = '"';
                     break;
-                case '0':
-                    buf[dst++] = '0';
-                    break;
                 default:
                     free(buf);
-                    yyerror = "Illegal escape sequence in string";
+                    yyerror = "Unrecognized escape character in string";
                     return ERROR; 
             }
             src += 2;
+        } else if(c == '\n') {
+            free(buf);
+            yyerror = "String spans multiple lines";
+            return ERROR;
         } else {
             buf[dst++] = c;
             src++;
