@@ -63,22 +63,22 @@ yylineno = 1;
 
 
  /* Operators */
+"++"            {updateCol(); return OPER_INC;}
+"--"            {updateCol(); return OPER_DEC;}
+"&&"            {updateCol(); return OPER_AND;}
+"||"            {updateCol(); return OPER_OR;}
+">="            {updateCol(); return OPER_GTE;}
+"<="            {updateCol(); return OPER_LTE;}              
+"=="            {updateCol(); return OPER_EQ;}
+"!="            {updateCol(); return OPER_NEQ;}
 "+"             {updateCol(); return OPER_ADD;}
 "-"             {updateCol(); return OPER_SUB;}
 "*"             {updateCol(); return OPER_MUL;}
 "/"             {updateCol(); return OPER_DIV;}
 "<"             {updateCol(); return OPER_LT;}
 ">"             {updateCol(); return OPER_GT;}
-">="            {updateCol(); return OPER_GTE;}
-"<="            {updateCol(); return OPER_LTE;}              
-"=="            {updateCol(); return OPER_EQ;}
-"!="            {updateCol(); return OPER_NEQ;}
 "="             {updateCol(); return OPER_ASGN;}
 "@"             {updateCol(); return OPER_AT;}
-"++"            {updateCol(); return OPER_INC;}
-"--"            {updateCol(); return OPER_DEC;}
-"&&"            {updateCol(); return OPER_AND;}
-"||"            {updateCol(); return OPER_OR;}
 "!"             {updateCol(); return OPER_NOT;}
 "%"             {updateCol(); return OPER_MOD;}
 
