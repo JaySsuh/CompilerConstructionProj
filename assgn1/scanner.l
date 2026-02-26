@@ -110,8 +110,8 @@ yylineno = 1;
 {multlncomment} {yycol = scancol; yyerror = "Unterminated comment"; return ERROR;}
 
  /* Other */
-{newline}       //TODO
-{whitespace}    //TODO
+{newline}       {scancol = 1;}
+{whitespace}    {scancol += yyleng;}
 .               {return ILLEGAL_TOK;}
 
 %%
