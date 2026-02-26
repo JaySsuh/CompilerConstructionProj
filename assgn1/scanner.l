@@ -21,6 +21,8 @@ void countLines();
  /* TODO: function to process a string literal */
 int processString();
 
+$}
+
 newline         //TODO
 whitespace      //TODO
 integer         //TODO
@@ -55,24 +57,24 @@ yylineno = 1;
  /* TODO: Support all operators in mC */
 
  /* Identifiers */;
-{identifier}    {updateCol(); /*return ID / KEYWORD */}
-{illidentifier} {updateCol(); yyerror = "Illegal token"; return ERROR;}
+{identifier}
+{illidentifier}
 
  /* Constants */;
-{integer}       {updateCol(); /*set yylval & return INTEGER */}
-{integerlead0}  {updateCol(); yyerror = "Integers may no thave leading zeros"; return ERROR;}
-{character}     {updateCol(); /*set yylval & return CHAR */}
-{string}        {updateCol(); return processString();}
-{untermstring}  {updateCol(); yyerror = "Unterminated string constant"; return ERROR;}
+{integer}
+{integerlead0}
+{character}
+{string}
+{untermstring}
 
  /* Comments */
-{comment}       {updateCol();}
-{untermcomment} {updateCol();}
-{multlncomment} {updateCol(); yyerror = "Unterminated string"; return ERROR;}
+{comment}
+{untermcomment}
+{multlncomment}
 
  /* Other */
-{newline}       {countLines(); /*no token */}
-{whitespace}    {updateCol(); /* no token */}
+{newline}
+{whitespace}
 .               {return ILLEGAL_TOK;}
 
 %%
