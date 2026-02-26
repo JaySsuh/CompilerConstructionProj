@@ -30,7 +30,7 @@ character       \'[^\'\n]\'  /* match anything that isnt a single quote or newli
 
  /* String can contain any characters between the double quotes */
  /* other than a newline or unescaped doublequotes */
-*/
+
 string       \"([^\n\"\\]|\\.)*\" 
 
 
