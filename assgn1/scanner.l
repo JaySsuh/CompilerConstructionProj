@@ -82,27 +82,6 @@ illidentifier   [0-9]+[a-zA-Z][a-zA-Z0-9]*
 "!"             {updateCol(); return OPER_NOT;}
 "%"             {updateCol(); return OPER_MOD;}
 
-<<<<<<< HEAD
- /* Identifiers */;
-{identifier}
-{illidentifier}
-
- /* Constants */;
-{integer}
-{integerlead0}
-{character}
-{string}
-{untermstring}
-
- /* Comments */
-{comment}
-{untermcomment}
-{multlncomment}
-
- /* Other */
-{newline}
-{whitespace}
-=======
  /* Brackets & Parens */
  "["            {updateCol(); return LSQ_BRKT;}
  "]"            {updateCol(); return RSQ_BRKT;}
@@ -134,14 +113,12 @@ illidentifier   [0-9]+[a-zA-Z][a-zA-Z0-9]*
  /* Other */
 {newline}       {scancol = 1;}
 {whitespace}    {scancol += yyleng;}
->>>>>>> bf27906190abae313bda8da2dcf16b1a44b57218
 .               {return ILLEGAL_TOK;}
 
 %%
 
 /* user routines */
 
-/* TODO:
 Implement this function to keep track of column numbers
 */
 void updateCol(){
@@ -149,7 +126,6 @@ void updateCol(){
     yycol = scancol;
 }
 
-/* TODO:
 Implement this function to keep track of line numbers
 */
 void countLines(){
@@ -165,7 +141,6 @@ void countLines(){
 }
 
 
-/* TODO:
 Implement this function to
 check for illegal escape sequences in string literals
 and
