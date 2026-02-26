@@ -81,6 +81,17 @@ yylineno = 1;
 "!"             {updateCol(); return OPER_NOT;}
 "%"             {updateCol(); return OPER_MOD;}
 
+ /* Brackets & Parens */
+ "["            {updateCol(); return LSQ_BRKT;}
+ "]"            {updateCol(); return RSQ_BRKT;}
+ "{"            {updateCol(); return LCRLY_BRKT;}
+ "}"            {updateCol(); return RCRLY_BRKT;}
+ "("            {updateCol(); return LPAREN;}
+ ")"            {updateCol(); return RPAREN;}
+
+ /* Punctuation */
+ ","            {updateCol(); return COMMA;}
+ ";"            {updateCol(); return SEMICLN;}
 
  /* Identifiers */;
 {identifier}    //TODO
