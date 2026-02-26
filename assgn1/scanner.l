@@ -94,8 +94,8 @@ yylineno = 1;
  ";"            {updateCol(); return SEMICLN;}
 
  /* Identifiers */;
-{identifier}    //TODO
-{illidentifier} //TODO
+{identifier}    {updateCol(); return ID;}
+{illidentifier} {updateCol(); return ILLEGAL_TOK;}
 
  /* Constants */;
 {integer}       //TODO
