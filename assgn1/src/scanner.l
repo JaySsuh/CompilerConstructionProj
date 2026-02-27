@@ -28,13 +28,13 @@ int processString();
 newline         \n
 whitespace      [ \t\r]+
 integer         [0-9]+
-integerlead0    0[0-9]+      /* added definition so scanner recognizes the invalid integer */
-character       \'[^\'\n]\'  /* match anything that isnt a single quote or newline */
+integerlead0    0[0-9]+
+character       \'[^\'\n]\'
 
  /* String can contain any characters between the double quotes */
  /* other than a newline or unescaped doublequotes */
 
-string       \"([^\n\"\\]|\\.)*\" 
+string       \"([^\n\"\\]|\\.)*\"
 
 
  /* If the end quote is not found in the same line the string is unterminated */
@@ -68,7 +68,7 @@ illidentifier   [0-9]+[a-zA-Z][a-zA-Z0-9]*
 "&&"            {updateCol(); return OPER_AND;}
 "||"            {updateCol(); return OPER_OR;}
 ">="            {updateCol(); return OPER_GTE;}
-"<="            {updateCol(); return OPER_LTE;}              
+"<="            {updateCol(); return OPER_LTE;}
 "=="            {updateCol(); return OPER_EQ;}
 "!="            {updateCol(); return OPER_NEQ;}
 "+"             {updateCol(); return OPER_ADD;}
@@ -83,16 +83,16 @@ illidentifier   [0-9]+[a-zA-Z][a-zA-Z0-9]*
 "%"             {updateCol(); return OPER_MOD;}
 
  /* Brackets & Parens */
- "["            {updateCol(); return LSQ_BRKT;}
- "]"            {updateCol(); return RSQ_BRKT;}
- "{"            {updateCol(); return LCRLY_BRKT;}
- "}"            {updateCol(); return RCRLY_BRKT;}
- "("            {updateCol(); return LPAREN;}
- ")"            {updateCol(); return RPAREN;}
+"["            {updateCol(); return LSQ_BRKT;}
+"]"            {updateCol(); return RSQ_BRKT;}
+"{"            {updateCol(); return LCRLY_BRKT;}
+"}"            {updateCol(); return RCRLY_BRKT;}
+"("            {updateCol(); return LPAREN;}
+")"            {updateCol(); return RPAREN;}
 
  /* Punctuation */
- ","            {updateCol(); return COMMA;}
- ";"            {updateCol(); return SEMICLN;}
+","            {updateCol(); return COMMA;}
+";"            {updateCol(); return SEMICLN;}
 
  /* Identifiers */
 {identifier}    {updateCol(); return ID;}
