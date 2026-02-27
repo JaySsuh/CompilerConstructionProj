@@ -122,8 +122,8 @@ illidentifier   [0-9]+[a-zA-Z][a-zA-Z0-9]*
 Implement this function to keep track of column numbers
 */
 void updateCol(){
-    scancol += yyleng;
     yycol = scancol;
+    scancol += yyleng;
 }
 /*
 Implement this function to keep track of line numbers
