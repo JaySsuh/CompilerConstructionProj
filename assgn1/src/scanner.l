@@ -193,7 +193,7 @@ int processString(){
                     break;
                 default:
                     free(buf);
-                    yyerror = "Unrecognized escape character in string";
+                    yyerror = "Unrecognized escape character in String";
                     return ERROR; 
             }
             src += 2;
@@ -207,6 +207,10 @@ int processString(){
         }
     }
     buf[dst] = '\0';
+
+    strncpy(yytext, buf, len);
+    yytext[dst] = '\0';
+    free(buf);
 
     return STRCONST;
 }
