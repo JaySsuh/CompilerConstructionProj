@@ -21,8 +21,6 @@ void countLines();
  /* TODO: function to process a string literal */
 int processString();
 
-$}
-
 %option noyywrap yylineno
 
 newline         \n
@@ -118,14 +116,14 @@ illidentifier   [0-9]+[a-zA-Z][a-zA-Z0-9]*
 %%
 
 /* user routines */
-
+/*
 Implement this function to keep track of column numbers
 */
 void updateCol(){
     scancol += yyleng;
     yycol = scancol;
 }
-
+/*
 Implement this function to keep track of line numbers
 */
 void countLines(){
@@ -140,13 +138,14 @@ void countLines(){
     yycol = scancol;
 }
 
-
+/*
 Implement this function to
 check for illegal escape sequences in string literals
 and
 convert valid escape sequences into escaped characters
 (string[0] == '\\' and string[1] == 'n', then string[0] should be '\n')
 */
+
 int processString(){
     int len = yyleng;
     
