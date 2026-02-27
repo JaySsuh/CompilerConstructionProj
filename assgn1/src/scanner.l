@@ -191,6 +191,7 @@ int processString(){
                 default:
                     free(buf);
                     yyerror = "Unrecognized escape character in String";
+                    yycol = scancol - yyleng + src + 1;
                     return ERROR; 
             }
             src += 2;
