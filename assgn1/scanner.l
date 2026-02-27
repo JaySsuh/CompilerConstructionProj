@@ -208,5 +208,5 @@ int processString(){
     }
     buf[dst] = '\0';
 
-    return STRING;
+    return STRCONST;
 }
