@@ -182,9 +182,6 @@ int processString(){
                 case 't':
                     buf[dst++] = '\t';
                     break;
-                case 'r':
-                    buf[dst++] = '\r';
-                    break;
                 case '\\':
                     buf[dst++] = '\\';
                     break;
