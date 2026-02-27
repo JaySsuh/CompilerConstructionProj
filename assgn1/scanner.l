@@ -1,7 +1,7 @@
 
 /* definitions */
 
-%
+%{
 #include <stdio.h>
 #include <stdlib.h>
 #include "tokendef.h"
@@ -20,6 +20,8 @@ void countLines();
 
  /* TODO: function to process a string literal */
 int processString();
+
+%}
 
 %option noyywrap yylineno
 
