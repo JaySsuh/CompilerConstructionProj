@@ -1,3 +1,5 @@
 int x = 1;
-/* unterminated comment
+/* unterminated comm
+en
+t
 int y = 2;
