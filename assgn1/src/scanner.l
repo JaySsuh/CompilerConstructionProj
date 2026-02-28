@@ -108,7 +108,23 @@ illidentifier   [0-9]+[a-zA-Z][a-zA-Z0-9]*
  /* Comments */
 {comment}       {updateCol();}
 {multlncomment} {countLines();}
-{untermcomment} {yycol = scancol; yyerror = "Unterminated comment"; return ERROR;}
+{untermcomment} {
+    int newLines = 0;
+
+    for(int i = 0; i < yyleng; i++) {
+         if(yytext[i] == '\n') {
+            newLines++;
+         }
+    }
+    
+    yycol = scancol;
+    scanlineno = yylineno - newLines;
+    yylineno = yylineno - newLines;
+
+    scancol = 1;
+    yyerror = "Unterminated comment";
+    return ERROR;
+}
 
  /* Other */
 {newline}       {scancol = 1;}
