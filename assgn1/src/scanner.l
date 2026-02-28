@@ -129,6 +129,7 @@ illidentifier   [0-9]+[a-zA-Z][a-zA-Z0-9]*
  /* Other */
 {newline}       {scancol = 1;}
 {whitespace}    {scancol += yyleng;}
+<<EOF>>         {return 0;}
 .               {updateCol(); return ILLEGAL_TOK;}
 
 %%
