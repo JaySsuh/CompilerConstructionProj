@@ -38,7 +38,7 @@ string       \"([^\n\"\\]|\\.)*\"
 
 
  /* If the end quote is not found in the same line the string is unterminated */
-untermstring \"([^\n\"\\]|\\.)*\n
+untermstring \"([^\n\"\\]|\\.)*$
 
 comment         \/\/[^\n]*
 multlncomment   \/\*([^*]|\*+[^*/])*\*+\/
@@ -103,7 +103,7 @@ illidentifier   [0-9]+[a-zA-Z][a-zA-Z0-9]*
 {integer}       {updateCol(); return INTCONST;}
 {character}     {updateCol(); return CHARCONST;}
 {string}        {updateCol(); return processString();}
-{untermstring}  {yycol = scancol; scancol = 1; yyerror = "Unterminated string constant"; return ERROR;}
+{untermstring}  {yycol = scancol; yyerror = "Unterminated string constant"; return ERROR;}
 
  /* Comments */
 {comment}       {updateCol();}
