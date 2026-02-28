@@ -26,4 +26,4 @@ Executing on windows:
 4. cd assgn1
 5. make clean
 6. make
-7. ./obj/scanner < {name_of_files_used_for_testing}.mC
+7. ./obj/scanner ./tests/{name_of_files_used_for_testing}.mC
