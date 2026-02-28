@@ -1,0 +1,29 @@
+1. Names and Course
+Names: Jay Suh and Joel Sarmiento
+Course: CS4318.252.
+
+2. Contributions
+Joel Sarmiento: Recognizing Tokens, testing, debugging, detecting illegal comments, strings, correct error message, compile and run
+Jay Suh: User routines, testing, escape sequences, writeup, compile and run
+
+3. Testing strategy
+We will test our scanner using our own .mC test files based on the examples provided within the pdf
+    - We will check all cases based on the rules of the scanner in place such as no open comments, no leading 0's.
+    - We will also check to make sure that the project works on any environment, that being mac and windows machines respectively. 
+
+4. Execution instructions using provided Makefile
+Executing on mac:
+1. brew install flex
+2. cd assgn1
+3. make clean
+4. make
+5. ./obj/scanner ./tests/{name_of_files_used_for_testing}.mC
+
+Executing on windows: 
+1. wsl --install -d Ubuntu
+2. sudo apt update
+3. sudo apt install build-essential flex python3
+4. cd assgn1
+5. make clean
+6. make
+7. ./obj/scanner < {name_of_files_used_for_testing}.mC
